@@ -1,6 +1,6 @@
 // dependencies
-const express = require('express');
-const router = express.Router();
+const router = require('express').Router();
+const Workout = require("../models/workout");
 
 //get all workouts
 router.get("/workout", (req, res) => {
