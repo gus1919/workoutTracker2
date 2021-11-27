@@ -1,0 +1,29 @@
+{
+  "name": "workoutTracker2",
+  "version": "1.0.0",
+  "description": "A consumer will reach their fitness goals more quickly when they track their workout progress.",
+  "main": "server.js",
+  "scripts": {
+    "devStart": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gus1919/workoutTracker2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gus1919/workoutTracker2/issues"
+  },
+  "homepage": "https://github.com/gus1919/workoutTracker2#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^6.0.13"
+  },
+  "devDependencies": {
+    "dotenv": "^10.0.0",
+    "nodemon": "^2.0.15"
+  }
+}
