@@ -16,7 +16,8 @@ app.use(express.static("public"));
 //connecting to mongo
 
 //route connections
-app.use(require("./routes/html-routes"))
+app.use(require("./routes/html-routes"));
+app.use(require("./routes/api-routes"));
 
 //server listening
 app.listen(PORT);
