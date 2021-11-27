@@ -17,7 +17,7 @@ app.use(express.static("public"));
 
 //route connections
 app.use(require("./routes/html-routes"));
-app.use(require("./routes/api-routes"));
+app.use('/api', require("./routes/api-routes"));
 
 //server listening
 app.listen(PORT);

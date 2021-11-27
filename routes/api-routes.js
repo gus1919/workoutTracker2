@@ -1,6 +1,5 @@
 // dependencies
 const express = require('express');
-const { route } = require('./html-routes');
 const router = express.Router();
 
 //get all workouts
