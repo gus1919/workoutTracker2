@@ -17,15 +17,17 @@ app.use(express.json());
 app.use(express.static("public"));
 
 //connecting to mongo and making sure its working
-mongoose.connect(process.env.ATLAS_URI)
+mongoose.connect(process.env.ATLAS_URI || "mongodb://localhost/workout", {
+    useNewUrlParser: true
+});
 const db = mongoose.connection
 db.on('error', (error) => console.error(error))
 db.once('open', () => console.log('Connected to Database'))
 
 
 //route connections
-app.use(require("./routes/html-routes"));
 app.use('/api', require("./routes/api-routes"));
+app.use(require("./routes/html-routes"));
 
 //server listening
 app.listen(PORT);
