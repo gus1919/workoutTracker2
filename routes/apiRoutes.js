@@ -3,60 +3,32 @@ const router = require('express').Router();
 const Workout = require("../models/workout");
 
 
-//get all workouts
-router.get("/", (req, res) => {
+//get last workout
+router.get("/workouts", (req, res) => {
+  res.send({ type: 'GET' });
    
-    res.send('Whaddup')
-    Workout.find({})
-    .then(dbWorkout => {
-        res.json(dbWorkout);
-    }).catch(err => {
-        res.json(err);
-    }); 
+
 });
 
-// add new exercise
-router.post("/workout", (req, res) => {
-    Workout.create({})
-    .then(dbWorkout => {
-        res.json(dbWorkout);
-    }).catch(err => {
-        res.json(err);
-    });
+// create new workout
+router.post("/workouts", (req, res) => {
+ res.send(
+
+  {
+      "name": "sample",
+      "time": "Wed, 21 Oct 2015 18:27:50 GMT"
+  })
 });
 
-// continue exercise
-router.put("workout/:id", (req, res) => {
-    Workout.updateOne({
-        _id: req.params.id
-    }, {
-        $push: {exercises: req.body}
-    })
-    .then(dbWorkout => {
-        res.json(dbWorkout);
-    }).catch(err => {
-        res.json(err);
-    });
+// add exercise
+router.put("workouts/:id", (req, res) => {
+  
 });
 
 // get chart data past 7 days weight and duration
-router.get("/workout/range", (req, res) => {
-    Workout.find({})
-    Workout.aggregate([
-        {
-            $addFields: {
-                totalDuration: { $sum: "$exercises.duration" }
-            }
-        }
-    ])
-    .sort( { "day": -1, "_id": -1 })
-    .limit(7)
-    .then(dbWorkout => {
-        dbWorkout.reverse();
-        res.json(dbWorkout);
-    }).catch(err => {
-        res.json(err);
-    });
+router.get("/workouts/range", (req, res) => {
+  
+  res.send({ type: 'GET' })
 });
 
 module.exports = router;
