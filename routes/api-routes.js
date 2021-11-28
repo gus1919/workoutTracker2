@@ -3,17 +3,19 @@ const router = require('express').Router();
 const Workout = require("../models/workout");
 
 //get all workouts
-router.get("/workout", (req, res) => {
+router.get("/", (req, res) => {
+   
+    //res.send('Whaddup')
     Workout.find({})
     .then(dbWorkout => {
         res.json(dbWorkout);
     }).catch(err => {
         res.json(err);
-    });
+    }); 
 });
 
 // add new exercise
-router.post("/workout", (req, res) => {
+router.post("/workouts", (req, res) => {
     Workout.create({})
     .then(dbWorkout => {
         res.json(dbWorkout);
@@ -23,7 +25,7 @@ router.post("/workout", (req, res) => {
 });
 
 // continue exercise
-router.put("workout/:id", (req, res) => {
+router.put("workouts/:id", (req, res) => {
     Workout.updateOne({
         _id: req.params.id
     }, {
@@ -37,7 +39,7 @@ router.put("workout/:id", (req, res) => {
 });
 
 // get chart data past 7 days weight and duration
-router.get("/workout/range", (req, res) => {
+router.get("/workouts/range", (req, res) => {
     Workout.find({})
     Workout.aggregate([
         {

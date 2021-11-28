@@ -16,15 +16,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
 
-//connecting to mongo
-mongoose.connect(process.env.ATLAS_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-    useFindAndModify: false
-}, () => {
-    console.log("Mongoose is connected")
-});
+//connecting to mongo and making sure its working
+mongoose.connect(process.env.ATLAS_URI)
+const db = mongoose.connection
+db.on('error', (error) => console.error(error))
+db.once('open', () => console.log('Connected to Database'))
 
 
 //route connections
