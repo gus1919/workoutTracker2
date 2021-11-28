@@ -26,8 +26,8 @@ db.once('open', () => console.log('Connected to Database'))
 
 
 //route connections
-app.use('/api', require("./routes/api-routes"));
-app.use(require("./routes/html-routes"));
+app.use('/api', require("./routes/apiRoutes"));
+app.use(require("./routes/htmlRoutes"));
 
 //server listening
 app.listen(PORT);
