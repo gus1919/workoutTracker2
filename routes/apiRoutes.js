@@ -1,34 +1,75 @@
 // dependencies
 const router = require('express').Router();
-const Workout = require("../models/workout");
+const Workout = require('../models/workout');
 
-
-//get last workout
-router.get("/workouts", (req, res) => {
-  res.send({ type: 'GET' });
-   
-
+// create a new workout
+router.post("/", ({ body }, res) => {
+  Workout.create(body)
+      .then(workout => {
+          res.json(workout);
+          console.log('new workout', workout);
+      })
+      .catch((err) => {
+          res.json(err);
+      });
 });
 
-// create new workout
-router.post("/workouts", (req, res) => {
- res.send(
-
-  {
-      "name": "sample",
-      "time": "Wed, 21 Oct 2015 18:27:50 GMT"
-  })
+// get workout summary
+router.get("/", (req, res) => {
+  Workout.aggregate([
+      {
+          $addFields: {
+              totalDuration: {
+                  $sum: '$exercises.duration'
+              },
+          },
+      },
+  ])
+      .then((workout) => {
+          console.log('workout summary', workout)
+          res.json(workout)
+      })
+      .catch((err) => {
+          res.json(err)
+      })
 });
 
-// add exercise
-router.put("workouts/:id", (req, res) => {
-  
+// add new exercise
+router.put("/:id", (req, res) => {
+  console.log('PARAMS', req.params)
+  Workout.findByIdAndUpdate(
+      req.params.id,
+      { $push: { exercises: req.body } },
+      { new: true, runValidators: true }
+  )
+      .then((workout) => {
+        res.json(workout)
+      })
+      .catch((err) => {
+          res.json(err)
+      })
 });
 
-// get chart data past 7 days weight and duration
-router.get("/workouts/range", (req, res) => {
-  
-  res.send({ type: 'GET' })
+// display stats
+router.get(`/range`, (req, res) => {
+  Workout.aggregate([
+      {
+          $addFields: {
+              totalDuration:
+                  { $sum: '$exercises.duration' },
+              totalWeight:
+                  { $sum: '$exercises.weight' }
+          }
+      }
+  ])
+      .limit(10)
+      .then((workout) => {
+          console.log('display stats', workout)
+          res.json(workout)
+      })
+      .catch((e) => {
+          res.json(e);
+      })
 });
 
 module.exports = router;
