@@ -6,11 +6,11 @@ const Workout = require('../models/workout');
 router.post("/", (req, res) => {
   Workout.create({})
       .then((workout) => {
-          res.json(workout)
-          console.log('new workout', workout)
+          res.json(workout);
+          console.log('new workout', workout);
       })
       .catch((err) => {
-          res.json(err)
+          res.json(err);
       })
 });
 
@@ -27,10 +27,10 @@ router.get("/", (req, res) => {
   ])
       .then((workout) => {
           console.log('workout summary', workout);
-          res.json(workout)
+          res.json(workout);
       })
       .catch((e) => {
-          res.json(e)
+          res.json(e);
       })
 });
 
@@ -43,10 +43,10 @@ router.put("/:id", (req, res) => {
       { new: true, runValidators: true }
   )
       .then((workout) => {
-        res.json(workout)
+        res.json(workout);
       })
       .catch((e) => {
-          res.json(e)
+          res.json(e);
       })
 });
 
@@ -65,10 +65,10 @@ router.get(`/range`, (req, res) => {
       .limit(10)
       .then((workout) => {
           console.log('display stats', workout);
-          res.json(workout)
+          res.json(workout);
       })
       .catch((e) => {
-          res.json(e)
+          res.json(e);
       })
 });
 
