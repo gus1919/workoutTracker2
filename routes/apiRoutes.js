@@ -2,59 +2,74 @@
 const router = require('express').Router();
 const Workout = require('../models/workout');
 
-// create new workout
-router.post("/workouts", (req, res) => {
-  Workout.create(req.body).then(function(dbWorkout){
-    res.send(dbWorkout);
-    console.log(dbWorkout);
-  })
-  .catch(err => {
-    res.status(400).json(err);
-  });  
+// create a new workout
+router.post("/", (req, res) => {
+  Workout.create({})
+      .then((workout) => {
+          res.json(workout)
+          console.log('new workout', workout)
+      })
+      .catch((err) => {
+          res.json(err)
+      })
 });
 
-//get last workout
-router.get("/workouts", (req, res) => {
+// get workout summary
+router.get("/", (req, res) => {
   Workout.aggregate([
-    { $addFields: {
-      totalDuration: {$sum: '$exercises.duration'}
-    }}
-  ])
-  .then((dbWorkout) => {
-    res.json(dbWorkout)
-  })
-  .catch(err => {
-    res.status(400).json(err);
-  });
-});
-
-// add exercise
-router.put("/workouts/:id", (req, res) => {
-  Workout.findByIdAndUpdate({_id: req.params.id}, {$push:{exercises: req.body}})
-  .then(dbWorkout => {
-    res.json(dbWorkout);
-  })
-  .catch(err => {
-    res.status(400).json(err);
-  });
-});
-
-// get chart data past 7 days weight and duration
-router.get("/workouts/range", (req, res) => {
-  Workout.aggregate([
-    {
-      $addFields: {
-        totalDuration: { $sum: '$exercises.duration'},
-        totalWeight: {$sum: '$exercises.weight'}
+      {
+          $addFields: {
+              totalDuration: {
+                  $sum: '$exercise.duration'
+              },
+          },
       },
-    },
   ])
-  .then((dbWorkout) => {
-    res.json(dbWorkout)
-  })
-  .catch((err) => {
-    res.json(err)
-  })
+      .then((workout) => {
+          console.log('workout summary', workout);
+          res.json(workout)
+      })
+      .catch((e) => {
+          res.json(e)
+      })
+});
+
+// add new exercise
+router.put("/:id", (req, res) => {
+  console.log('PARAMS', req.params)
+  Workout.findByIdAndUpdate(
+      req.params.id,
+      { $push: { exercise: req.body } },
+      { new: true, runValidators: true }
+  )
+      .then((workout) => {
+        res.json(workout)
+      })
+      .catch((e) => {
+          res.json(e)
+      })
+});
+
+// display stats
+router.get(`/range`, (req, res) => {
+  Workout.aggregate([
+      {
+          $addFields: {
+              totalDuration:
+                  { $sum: '$exercise.duration' },
+              totalWeight:
+                  { $sum: '$exercise.weight' }
+          }
+      }
+  ])
+      .limit(10)
+      .then((workout) => {
+          console.log('display stats', workout);
+          res.json(workout)
+      })
+      .catch((e) => {
+          res.json(e)
+      })
 });
 
 module.exports = router;

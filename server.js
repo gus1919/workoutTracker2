@@ -28,7 +28,7 @@ db.once('open', () => console.log('Connected to Database'))
 
 
 //route connections
-app.use('/api', require("./routes/apiRoutes"));
+app.use('/api/workouts', require("./routes/apiRoutes"));
 app.use(require("./routes/htmlRoutes"));
 
 //server listening
