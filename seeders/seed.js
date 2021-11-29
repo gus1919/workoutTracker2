@@ -1,10 +1,7 @@
 const mongoose = require('mongoose');
 const Workout = require('../models/workout');
 
-mongoose.connect(process.env.ATLAS_URI || 'mongodb://localhost/workout', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose.connect(process.env.ATLAS_URI || 'mongodb://localhost/workout');
 
 const workoutSeed = [
   {

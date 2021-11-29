@@ -3,15 +3,15 @@ const router = require('express').Router();
 const Workout = require('../models/workout');
 
 // create a new workout
-router.post("/", (req, res) => {
-  Workout.create({})
-      .then((workout) => {
+router.post("/", ({ body }, res) => {
+  Workout.create(body)
+      .then(workout => {
           res.json(workout);
           console.log('new workout', workout);
       })
       .catch((err) => {
           res.json(err);
-      })
+      });
 });
 
 // get workout summary
@@ -20,17 +20,17 @@ router.get("/", (req, res) => {
       {
           $addFields: {
               totalDuration: {
-                  $sum: '$exercise.duration'
+                  $sum: '$exercises.duration'
               },
           },
       },
   ])
       .then((workout) => {
-          console.log('workout summary', workout);
-          res.json(workout);
+          console.log('workout summary', workout)
+          res.json(workout)
       })
-      .catch((e) => {
-          res.json(e);
+      .catch((err) => {
+          res.json(err)
       })
 });
 
@@ -39,14 +39,14 @@ router.put("/:id", (req, res) => {
   console.log('PARAMS', req.params)
   Workout.findByIdAndUpdate(
       req.params.id,
-      { $push: { exercise: req.body } },
+      { $push: { exercises: req.body } },
       { new: true, runValidators: true }
   )
       .then((workout) => {
-        res.json(workout);
+        res.json(workout)
       })
-      .catch((e) => {
-          res.json(e);
+      .catch((err) => {
+          res.json(err)
       })
 });
 
@@ -56,16 +56,16 @@ router.get(`/range`, (req, res) => {
       {
           $addFields: {
               totalDuration:
-                  { $sum: '$exercise.duration' },
+                  { $sum: '$exercises.duration' },
               totalWeight:
-                  { $sum: '$exercise.weight' }
+                  { $sum: '$exercises.weight' }
           }
       }
   ])
       .limit(10)
       .then((workout) => {
-          console.log('display stats', workout);
-          res.json(workout);
+          console.log('display stats', workout)
+          res.json(workout)
       })
       .catch((e) => {
           res.json(e);
