@@ -1,5 +1,5 @@
 {
-  "name": "workoutTracker2",
+  "name": "workouttracker2",
   "version": "1.0.0",
   "description": "A consumer will reach their fitness goals more quickly when they track their workout progress.",
   "main": "server.js",
