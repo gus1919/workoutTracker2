@@ -2,7 +2,7 @@
 A consumer will reach their fitness goals more quickly when they track their workout progress.
 
 ## Description
-> This portfolio contains information regarding my skills and a short biography.  There are links to my resume, my linkedin page, my gihub profile and several of my projects.
+> This app allows a user to create a workout and add exercises to it to keep track of certain stats.  The user is also to view charts showing how long they worked out and houw much weight they have lifted.  The front end work was provided and the back end was set up using node express and mongodb atlas.
 
   ---
   ## Table of contents
@@ -16,14 +16,14 @@ A consumer will reach their fitness goals more quickly when they track their wor
   ---
   ## Installation
    
-   >None.  
+   >From heroku, just navigate to the app.  From github, npm run start will run the app.  
  
   ---
   ## Use
 
-  >Here is a link to the deployed application: 
+  >Here is a link to the deployed application: https://oetersworkouttracker.herokuapp.com
   
-  >Here is a link to the github repository: https://github.com/gus1919/portfolio3
+  >Here is a link to the github repository: https://github.com/gus1919/workoutTracker2
 
 
 
@@ -43,8 +43,15 @@ A consumer will reach their fitness goals more quickly when they track their wor
 * node.js
 * express.js
 * NPM
-* tailwindcss
-* express-handlebars
+* nodemon
+* morgan
+* dotenv
+* path
+* body-parser
+* mongoose
+* mongodb
+* mongodb atlas
+* Heroku
 ---
   ## Issues
 > None.
