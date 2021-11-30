@@ -25,6 +25,8 @@ A consumer will reach their fitness goals more quickly when they track their wor
   
   >Here is a link to the github repository: https://github.com/gus1919/workoutTracker2
 
+![WorkoutTracker1](https://user-images.githubusercontent.com/86876335/143967789-e6bea488-057c-4bb6-93b3-566fef3e63c5.png)
+![WorkoutTracker2](https://user-images.githubusercontent.com/86876335/143967795-28d41f19-6887-4098-a64a-a60806d376a4.png)
 
 
   ---
